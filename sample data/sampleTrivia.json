@@ -1,0 +1,83 @@
+{
+    "createdBy": "Scott",
+    "lastModified": "2024-07-15T17:40:21.054Z",
+    "id": "123",
+    "name": "Sample Trivia One",
+    "description": "Just a trivia for testing.",
+    "rounds": [
+        {
+            "name": "Math Round",
+            "id": "1",
+            "description": "A round on math.",
+            "questions": [
+                {
+                    "question": "What does 1 + 1 equal?",
+                    "imageUrl": "",
+                    "videoUrl": "",
+                    "id": "1",
+                    "answerSlots": 1,
+                    "validAnswers": [ [ "2", "two" ] ],
+                    "answerOrderMatters": false,
+                    "isBonus": false
+                },
+                {
+                    "question": "What are the first 3 prime numbers in order?",
+                    "imageUrl": "",
+                    "videoUrl": "",
+                    "id": "2",
+                    "answerSlots": 3,
+                    "validAnswers": [ [ "2", "two" ], [ "3", "three" ], [ "5", "five" ] ],
+                    "answerOrderMatters": true,
+                    "isBonus": false
+                },
+                {
+                    "question": "Name two positive integers less than three:",
+                    "imageUrl": "",
+                    "videoUrl": "",
+                    "id": "3",
+                    "answerSlots": 1,
+                    "validAnswers": [ [ "2", "two", "1", "one" ] ],
+                    "answerOrderMatters": false,
+                    "isBonus": false
+                }
+            ]
+        },
+        {
+            "name": "Media Round",
+            "id": "2",
+            "description": "A round to test pictures and videos.",
+            "questions": [
+                {
+                    "question": "What is this a picture of?",
+                    "imageUrl": "https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-house-with-no-background-png-image_9197435.png",
+                    "videoUrl": "",
+                    "id": "4",
+                    "answerSlots": 1,
+                    "validAnswers": [ [ "house", "home" ] ],
+                    "answerOrderMatters": false,
+                    "isBonus": false
+                },
+                {
+                    "question": "What country is this in?",
+                    "imageUrl": "",
+                    "videoUrl": "https://www.youtube.com/watch?v=KsLi7HgSuhI&list=WL",
+                    "id": "5",
+                    "answerSlots": 1,
+                    "validAnswers": [ [ "Germany" ] ],
+                    "answerOrderMatters": false,
+                    "isBonus": false
+                },
+                {
+                    "question": "What is your favorite color?",
+                    "imageUrl": "",
+                    "videoUrl": "",
+                    "id": "6",
+                    "answerSlots": 1,
+                    "validAnswers": [ [] ],
+                    "answerOrderMatters": false,
+                    "isBonus": true
+                }
+            ]
+        }
+    ]
+}
