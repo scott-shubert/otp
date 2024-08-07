@@ -1,7 +1,7 @@
 import express from 'express'
 import { Server } from 'socket.io'
 import { createServer } from 'node:http'
-import testData from '../sample data/sampleTrivia.json' assert { type: 'json' }
+import testData from '../sample data/sampleTrivia.json'
 
 const app = express()
 const port = 3000
@@ -9,21 +9,25 @@ const server = createServer(app)
 const rounds = getRounds(testData)
 const io = new Server(server, {
 	cors: {
-		origins: 'http://localhost:5173/',
+		origin: '*',
 		methods: ['GET', 'POST'],
 	},
 })
 
 app.get('/set-round/:id', (req, res) => {
-	io.emit('set-round', rounds[req.params.id])
+	io.emit('set round', rounds[Number(req.params.id)])
 	res.send('hello world')
+	console.log('set round to ', req.params.id)
 })
 
 io.on('connection', (socket) => {
 	console.log('a user connected: ', socket.id)
 
-	socket.on('chat message', (msg) => {
-		console.log('message: ' + msg)
+	socket.on('submit answers', (msg: any) => {
+		msg.forEach((q: any) => {
+			console.log('questionid: ', q.id)
+			q.responses.forEach((r: any) => console.log(r))
+		})
 	})
 })
 
@@ -31,18 +35,18 @@ server.listen(port, () => {
 	console.log(`Server is running on port ${port}`)
 })
 
-function getRounds(data) {
-	const result = []
+function getRounds(data: any): Round[] {
+	const result: Round[] = []
 
-	data.rounds.forEach((round) => {
-		const uiRound = {
+	data.rounds.forEach((round: Round) => {
+		const uiRound: Round = {
 			name: round.name,
 			id: round.id,
 			description: round.description,
 			questions: [],
 		}
 
-		round.questions.forEach((q) => {
+		round.questions.forEach((q: any) => {
 			uiRound.questions.push({
 				id: q.id,
 				question: q.question,
@@ -57,4 +61,20 @@ function getRounds(data) {
 	})
 
 	return result
+}
+
+export interface Round {
+	id: string
+	name: string
+	description: string
+	questions: Question[]
+}
+
+export interface Question {
+	id: string
+	question: string
+	imageUrl: string
+	videoUrl: string
+	answerSlots: number
+	isBonus: boolean
 }

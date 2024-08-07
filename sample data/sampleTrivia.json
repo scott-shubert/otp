@@ -17,6 +17,7 @@
                     "id": "1",
                     "answerSlots": 1,
                     "validAnswers": [ [ "2", "two" ] ],
+                    "validAnswerDisplay": "2",
                     "answerOrderMatters": false,
                     "isBonus": false
                 },
@@ -27,6 +28,7 @@
                     "id": "2",
                     "answerSlots": 3,
                     "validAnswers": [ [ "2", "two" ], [ "3", "three" ], [ "5", "five" ] ],
+                    "validAnswerDisplay": "2, 3, 5",
                     "answerOrderMatters": true,
                     "isBonus": false
                 },
@@ -35,8 +37,9 @@
                     "imageUrl": "",
                     "videoUrl": "",
                     "id": "3",
-                    "answerSlots": 1,
+                    "answerSlots": 2,
                     "validAnswers": [ [ "2", "two", "1", "one" ] ],
+                    "validAnswerDisplay": "1, 2",
                     "answerOrderMatters": false,
                     "isBonus": false
                 }
@@ -54,6 +57,7 @@
                     "id": "4",
                     "answerSlots": 1,
                     "validAnswers": [ [ "house", "home" ] ],
+                    "validAnswerDisplay": "A house or home.",
                     "answerOrderMatters": false,
                     "isBonus": false
                 },
@@ -64,6 +68,7 @@
                     "id": "5",
                     "answerSlots": 1,
                     "validAnswers": [ [ "Germany" ] ],
+                    "validAnswerDisplay": "Germany",
                     "answerOrderMatters": false,
                     "isBonus": false
                 },
@@ -74,6 +79,7 @@
                     "id": "6",
                     "answerSlots": 1,
                     "validAnswers": [ [] ],
+                    "validAnswerDisplay": "",
                     "answerOrderMatters": false,
                     "isBonus": true
                 }

@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client'
-import RoundDisplay, { Round } from './RoundDisplay'
+import RoundDisplay, { Answer, Round } from './RoundDisplay'
 import { useState } from 'react'
 
 function App() {
@@ -7,23 +7,19 @@ function App() {
 
   const [currentRound, setCurrentRound] = useState<Round>()
 
-  socket.on('set-round', (msg: Round) => {
+  socket.on('set round', (msg: Round) => {
     setCurrentRound(msg)
   })
+
+  const submitAnswers = (answers: Answer[]) => {
+    socket.emit('submit answers', answers)
+  }
 
   return (
     <>
       <div className="flex justify-center">Team UI goes here.</div>
-      <button
-        onClick={() => {
-          console.log('what')
-          socket.emit('chat message', 'testing123')
-        }}
-      >
-        click me
-      </button>
 
-      <RoundDisplay data={currentRound} />
+      <RoundDisplay data={currentRound} submitAnswers={submitAnswers} />
     </>
   )
 }
