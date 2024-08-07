@@ -64,7 +64,7 @@
                 {
                     "question": "What country is this in?",
                     "imageUrl": "",
-                    "videoUrl": "https://www.youtube.com/watch?v=KsLi7HgSuhI&list=WL",
+                    "videoUrl": "https://www.youtube.com/embed/KsLi7HgSuhI?si=G9SQmPc6ZRuW9sQf",
                     "id": "5",
                     "answerSlots": 1,
                     "validAnswers": [ [ "Germany" ] ],

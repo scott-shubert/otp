@@ -42,7 +42,7 @@ export default function RoundDisplay({
               data.questions.map((question, index) => {
                 return (
                   <div key={'q-' + index}>
-                    Question {index}:
+                    {question.isBonus ? 'Bouns' : 'Question ' + (index + 1)}:
                     <QuestionDisplay
                       data={question}
                       setAnswers={(value, subIndex) => {
