@@ -7,17 +7,12 @@ const app = express()
 const port = 3000
 const server = createServer(app)
 const rounds = getRounds(testData)
+let currentRound = 0
 const io = new Server(server, {
 	cors: {
 		origin: '*',
 		methods: ['GET', 'POST'],
 	},
-})
-
-app.get('/set-round/:id', (req, res) => {
-	io.emit('set round', rounds[Number(req.params.id)])
-	res.send('hello world')
-	console.log('set round to ', req.params.id)
 })
 
 io.on('connection', (socket) => {
@@ -28,6 +23,18 @@ io.on('connection', (socket) => {
 			console.log('questionid: ', q.id)
 			q.responses.forEach((r: any) => console.log(r))
 		})
+	})
+
+	socket.on('change round', (value: number) => {
+		const newRound = currentRound + value
+		if (newRound >= 0 && newRound < rounds.length) {
+			currentRound = newRound
+			io.emit('set round', rounds[newRound])
+		}
+	})
+
+	socket.on('disconnect', () => {
+		console.log('user disconnected')
 	})
 })
 

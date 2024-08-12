@@ -1,18 +1,27 @@
-import { io } from 'socket.io-client'
 import RoundDisplay, { Answer, Round } from './RoundDisplay'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { socket } from './socket'
 
 function App() {
-  const socket = io(import.meta.env.VITE_BACKEND_IP)
-
   const [currentRound, setCurrentRound] = useState<Round>()
 
-  socket.on('set round', (msg: Round) => {
-    setCurrentRound(msg)
-  })
+  useEffect(() => {
+    function onSetRound(value: Round) {
+      setCurrentRound(value)
+    }
+
+    socket.on('set round', onSetRound)
+    socket.connect()
+
+    return () => {
+      socket.off('set round', onSetRound)
+      socket.disconnect()
+    }
+  }, [])
 
   const submitAnswers = (answers: Answer[]) => {
-    socket.emit('submit answers', answers)
+    // socket.emit('submit answers', answers)
+    console.log('submit...', answers)
   }
 
   return (
