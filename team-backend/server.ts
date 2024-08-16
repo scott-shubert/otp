@@ -14,10 +14,13 @@ const io = new Server(server, {
 		origin: '*',
 		methods: ['GET', 'POST'],
 	},
+	connectionStateRecovery: {},
 })
 
 io.on('connection', (socket) => {
 	console.log('a user connected: ', socket.id)
+	io.to(socket.id).emit('set round', RoundService.activeRound)
+	io.to(socket.id).emit('set question', RoundService.activeQuestions)
 
 	socket.on('submit answers', (msg: any) => {
 		msg.forEach((q: any) => {

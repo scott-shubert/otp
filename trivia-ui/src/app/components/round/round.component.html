@@ -1,8 +1,10 @@
-<div>
-    <h1>{{round.name}}</h1>
-    <h2>{{round.description}}</h2>
+<div class="mt-16">
+    <div class="text-center text-xl font-bold">{{round.name}}</div>
+    <div class="text-center">{{round.description}}</div>
     
-    @for (question of round.questions; track question.id) {
-        <app-question [data]="question"></app-question>
-    }
+    <div class="mt-8">
+        @for (question of round.questions; track question.id) {
+            <app-question [data]="question"></app-question>
+        }
+    </div>
 </div>
