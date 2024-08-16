@@ -11,10 +11,10 @@
             "description": "A round on math.",
             "questions": [
                 {
+                    "id": "1",
                     "question": "What does 1 + 1 equal?",
                     "imageUrl": "",
                     "videoUrl": "",
-                    "id": "1",
                     "answerSlots": 1,
                     "validAnswers": [ [ "2", "two" ] ],
                     "validAnswerDisplay": "2",
@@ -22,10 +22,10 @@
                     "isBonus": false
                 },
                 {
+                    "id": "2",
                     "question": "What are the first 3 prime numbers in order?",
                     "imageUrl": "",
                     "videoUrl": "",
-                    "id": "2",
                     "answerSlots": 3,
                     "validAnswers": [ [ "2", "two" ], [ "3", "three" ], [ "5", "five" ] ],
                     "validAnswerDisplay": "2, 3, 5",
@@ -33,10 +33,10 @@
                     "isBonus": false
                 },
                 {
+                    "id": "3",
                     "question": "Name two positive integers less than three:",
                     "imageUrl": "",
                     "videoUrl": "",
-                    "id": "3",
                     "answerSlots": 2,
                     "validAnswers": [ [ "2", "two", "1", "one" ] ],
                     "validAnswerDisplay": "1, 2",
@@ -51,10 +51,10 @@
             "description": "A round to test pictures and videos.",
             "questions": [
                 {
+                    "id": "4",
                     "question": "What is this a picture of?",
                     "imageUrl": "https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-house-with-no-background-png-image_9197435.png",
                     "videoUrl": "",
-                    "id": "4",
                     "answerSlots": 1,
                     "validAnswers": [ [ "house", "home" ] ],
                     "validAnswerDisplay": "A house or home.",
@@ -62,10 +62,10 @@
                     "isBonus": false
                 },
                 {
+                    "id": "5",
                     "question": "What country is this in?",
                     "imageUrl": "",
                     "videoUrl": "https://www.youtube.com/embed/KsLi7HgSuhI?si=G9SQmPc6ZRuW9sQf",
-                    "id": "5",
                     "answerSlots": 1,
                     "validAnswers": [ [ "Germany" ] ],
                     "validAnswerDisplay": "Germany",
@@ -73,10 +73,10 @@
                     "isBonus": false
                 },
                 {
+                    "id": "6",
                     "question": "What is your favorite color?",
                     "imageUrl": "",
                     "videoUrl": "",
-                    "id": "6",
                     "answerSlots": 1,
                     "validAnswers": [ [] ],
                     "validAnswerDisplay": "",

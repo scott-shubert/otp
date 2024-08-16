@@ -10,9 +10,21 @@ export class SocketService {
 
   constructor() {}
 
-  getMessages() {
+  getRoundChanges() {
     return new Observable((observer) => {
       this.socket.on('set round', (message) => {
+        observer.next(message);
+      });
+
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  getQuestionChanges() {
+    return new Observable((observer) => {
+      this.socket.on('set question', (message) => {
         observer.next(message);
       });
 

@@ -14,8 +14,11 @@ export class AppComponent implements OnInit {
   constructor(private socketService: SocketService) {}
 
   ngOnInit() {
-    this.socketService.getMessages().subscribe((message) => {
-      console.log(message);
+    this.socketService.getRoundChanges().subscribe((message: any) => {
+      console.log('round: ', message.name);
+    });
+    this.socketService.getQuestionChanges().subscribe((message: any) => {
+      console.log('question: ', message);
     });
   }
 }
