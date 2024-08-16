@@ -1,0 +1,8 @@
+<div>
+    <h1>{{round.name}}</h1>
+    <h2>{{round.description}}</h2>
+    
+    @for (question of round.questions; track question.id) {
+        <app-question [data]="question"></app-question>
+    }
+</div>
