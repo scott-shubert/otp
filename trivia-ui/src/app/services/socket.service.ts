@@ -33,4 +33,8 @@ export class SocketService {
       };
     });
   }
+
+  submitAnswer(data: any) {
+    this.socket.emit('submit answers', data);
+  }
 }

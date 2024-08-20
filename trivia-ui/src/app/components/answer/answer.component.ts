@@ -1,26 +1,25 @@
 import { Component, inject, Input } from '@angular/core';
-import { Question } from '../round/round.component';
 import {
   ControlContainer,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { AnswerComponent } from '../answer/answer.component';
 
 @Component({
-  selector: 'app-question',
+  selector: 'app-answer',
   standalone: true,
-  imports: [ReactiveFormsModule, AnswerComponent],
+  imports: [ReactiveFormsModule],
   viewProviders: [
     {
       provide: ControlContainer,
       useFactory: () => inject(ControlContainer, { skipSelf: true }),
     },
   ],
-  templateUrl: './question.component.html',
+  templateUrl: './answer.component.html',
 })
-export class QuestionComponent {
-  @Input() data: Question = new Question();
+export class AnswerComponent {
+  @Input({ required: true }) id = '';
   parentContainer = inject(ControlContainer);
 
   get parentFormGroup() {
@@ -28,9 +27,9 @@ export class QuestionComponent {
   }
 
   ngOnInit() {
-    this.parentFormGroup.addControl(this.data.id, new FormGroup({}));
+    this.parentFormGroup.addControl(this.id, new FormControl(''));
   }
   ngOnDestroy() {
-    this.parentFormGroup.removeControl(this.data.id);
+    this.parentFormGroup.removeControl(this.id);
   }
 }

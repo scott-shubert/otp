@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { QuestionComponent } from '../question/question.component';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SocketService } from '../../services/socket.service';
 
 export class Round {
   id = '';
@@ -23,9 +25,21 @@ export class Question {
 @Component({
   selector: 'app-round',
   standalone: true,
-  imports: [QuestionComponent],
+  imports: [QuestionComponent, ReactiveFormsModule],
   templateUrl: './round.component.html',
 })
 export class RoundComponent {
   @Input() round: Round = new Round();
+
+  constructor(private socketService: SocketService) {}
+
+  roundForm = new FormGroup({});
+
+  onSubmit() {
+    const submition = {
+      roundId: this.round.id,
+      answers: { ...this.roundForm.value },
+    };
+    this.socketService.submitAnswer(submition);
+  }
 }

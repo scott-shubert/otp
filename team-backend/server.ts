@@ -23,10 +23,7 @@ io.on('connection', (socket) => {
 	io.to(socket.id).emit('set question', RoundService.activeQuestions)
 
 	socket.on('submit answers', (msg: any) => {
-		msg.forEach((q: any) => {
-			console.log('questionid: ', q.id)
-			q.responses.forEach((r: any) => console.log(r))
-		})
+		console.log(msg)
 	})
 
 	socket.on('change round', (value: number) => {
