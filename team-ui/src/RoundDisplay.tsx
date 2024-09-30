@@ -2,17 +2,19 @@ import { useEffect, useState } from 'react'
 import QuestionDisplay, { Question } from './QuestionDisplay'
 
 export default function RoundDisplay({
-  data,
+  round,
+  questions,
   submitAnswers,
 }: {
-  data: Round | undefined
+  round: Round | undefined
+  questions: Question[] | undefined
   submitAnswers(answers: Answer[]): void
 }) {
   const [answers, setAnswers] = useState<Answer[]>([])
 
   useEffect(() => {
-    setAnswers(buildInitialAnswers())
-  }, [data])
+    updateAnswerState()
+  }, [questions])
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -33,15 +35,15 @@ export default function RoundDisplay({
 
   return (
     <div>
-      {data && (
+      {round && (
         <form onSubmit={handleSubmit}>
-          <div>{data.name}</div>
-          <div>{data.description}</div>
+          <div>{round.name}</div>
+          <div>{round.description}</div>
           <div className="mt-6">
-            {data.questions &&
-              data.questions.map((question, index) => {
+            {questions &&
+              questions.map((question, index) => {
                 return (
-                  <div key={'q-' + index}>
+                  <div key={question.id}>
                     {question.isBonus ? 'Bouns' : 'Question ' + (index + 1)}:
                     <QuestionDisplay
                       data={question}
@@ -61,16 +63,21 @@ export default function RoundDisplay({
     </div>
   )
 
-  function buildInitialAnswers(): Answer[] {
-    if (!data) return []
+  function updateAnswerState() {
+    if (!questions || questions.length === 0) {
+      setAnswers([])
+      return
+    }
 
-    const result = new Array<Answer>(data.questions.length)
-
-    data.questions.forEach((question, index) => {
-      result[index] = new Answer(question.id, question.answerSlots)
-    })
-
-    return result
+    const copy = [...answers]
+    if (questions.length > answers.length) {
+      const newQ = questions[questions.length - 1]
+      copy.push(new Answer(newQ.id, newQ.answerSlots))
+      setAnswers(copy)
+    } else {
+      copy.pop()
+      setAnswers(copy)
+    }
   }
 }
 
