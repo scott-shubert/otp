@@ -7,7 +7,7 @@ export default function RoundDisplay({
   submitAnswers,
 }: {
   round: Round | undefined
-  questions: Question[] | undefined
+  questions: Question[]
   submitAnswers(answers: Answer[]): void
 }) {
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -55,9 +55,12 @@ export default function RoundDisplay({
                 )
               })}
           </div>
-          <button type="submit" className="border border-black p-1">
-            Submit
-          </button>
+          {questions.length === round.numberOfQuestions &&
+            questions.length > 0 && (
+              <button type="submit" className="border border-black p-1">
+                Submit
+              </button>
+            )}
         </form>
       )}
     </div>
@@ -86,6 +89,7 @@ export interface Round {
   name: string
   description: string
   questions: Question[]
+  numberOfQuestions: number
 }
 
 export class Answer {

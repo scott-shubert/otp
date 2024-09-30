@@ -5,7 +5,7 @@ import { Question } from './QuestionDisplay'
 
 function App() {
   const [currentRound, setCurrentRound] = useState<Round>()
-  const [questions, setQuestions] = useState<Question[]>()
+  const [questions, setQuestions] = useState<Question[]>([])
 
   useEffect(() => {
     function onSetRound(value: Round) {

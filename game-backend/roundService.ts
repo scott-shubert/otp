@@ -3,6 +3,7 @@ export class Round {
 	name = ''
 	description = ''
 	questions: Question[] = []
+	numberOfQuestions = 0
 }
 
 export class Question {
@@ -33,9 +34,14 @@ export class RoundService {
 		const newRoundNumber = this.currentRound + value
 		if (newRoundNumber >= -1 && newRoundNumber < this.allRounds.length) {
 			this.currentRound = newRoundNumber
-			const newRound: Round = { ...this.allRounds[this.currentRound] }
-			newRound.questions = []
-			this.activeRound = newRound
+			if (newRoundNumber === -1) {
+				this.activeRound = new Round()
+			} else {
+				const newRound: Round = { ...this.allRounds[this.currentRound] }
+				newRound.numberOfQuestions = newRound.questions.length
+				newRound.questions = []
+				this.activeRound = newRound
+			}
 			this.activeQuestions = []
 			this.currentQuestionCount = -1
 			return true
