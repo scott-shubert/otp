@@ -1,0 +1,9 @@
+<div class="px-4 mt-8" [formGroupName]="data.id">
+    <p>{{data.question}}</p>
+
+    <div>
+        @for (answer of [].constructor(data.answerSlots); track $index) {
+            <app-answer [id]="$index.toString()"></app-answer>
+        }
+    </div>
+</div>

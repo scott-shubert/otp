@@ -2,12 +2,12 @@ import { socket } from './socket'
 import { useEffect } from 'react'
 
 function App() {
-  const handleNextRound = () => {
-    socket.emit('change round', 1)
+  const handleChangeRound = (value: number) => {
+    socket.emit('change round', value)
   }
 
-  const handlePreviousRound = () => {
-    socket.emit('change round', -1)
+  const handleChangeQuestion = (value: number) => {
+    socket.emit('change question', value)
   }
 
   useEffect(() => {
@@ -22,16 +22,35 @@ function App() {
     <>
       Admin UI Goes Here
       <div>
-        <button onClick={handleNextRound} className="border border-black p-1">
+        <button
+          onClick={() => handleChangeRound(1)}
+          className="border border-black p-1"
+        >
           Next Round
         </button>
       </div>
       <div>
         <button
-          onClick={handlePreviousRound}
+          onClick={() => handleChangeRound(-1)}
           className="border border-black p-1"
         >
           Previous Round
+        </button>
+      </div>
+      <div>
+        <button
+          className="border border-black p-1"
+          onClick={() => handleChangeQuestion(1)}
+        >
+          Next Question
+        </button>
+      </div>
+      <div>
+        <button
+          className="border border-black p-1"
+          onClick={() => handleChangeQuestion(-1)}
+        >
+          Previous Question
         </button>
       </div>
     </>
