@@ -12,7 +12,9 @@ interface teamName {
 function App() {
   const [currentRound, setCurrentRound] = useState<Round>()
   const [questions, setQuestions] = useState<Question[]>([])
-  const [justWatching, setJustWatching] = useState(false)
+  const [justWatching, setJustWatching] = useState(
+    JSON.parse(sessionStorage.getItem('justWatching') || 'false'),
+  )
   const [teamName, setTeamName] = useState('')
 
   useEffect(() => {
@@ -68,6 +70,11 @@ function App() {
       .catch((error) => console.log('Error setting team name: ', error))
   }
 
+  const handleSetJustWatching = (value: boolean) => {
+    setJustWatching(value)
+    sessionStorage.setItem('justWatching', JSON.stringify(value))
+  }
+
   return (
     <>
       <div className="flex justify-center">Trivia UI goes here.</div>
@@ -76,14 +83,17 @@ function App() {
         teamName={teamName}
         justWatching={justWatching}
         setTeamName={handleSetTeamName}
-        setJustWatching={setJustWatching}
+        setJustWatching={handleSetJustWatching}
       />
 
-      <RoundDisplay
-        round={currentRound}
-        questions={questions}
-        submitAnswers={submitAnswers}
-      />
+      {(teamName.length > 0 || justWatching === true) && (
+        <RoundDisplay
+          round={currentRound}
+          questions={questions}
+          justWatching={justWatching}
+          submitAnswers={submitAnswers}
+        />
+      )}
     </>
   )
 }

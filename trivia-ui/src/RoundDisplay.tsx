@@ -4,10 +4,12 @@ import QuestionDisplay, { Question } from './QuestionDisplay'
 export default function RoundDisplay({
   round,
   questions,
+  justWatching,
   submitAnswers,
 }: {
   round: Round | undefined
   questions: Question[]
+  justWatching: boolean
   submitAnswers(answers: Answer[]): void
 }) {
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -56,7 +58,8 @@ export default function RoundDisplay({
               })}
           </div>
           {questions.length === round.numberOfQuestions &&
-            questions.length > 0 && (
+            questions.length > 0 &&
+            !justWatching && (
               <button type="submit" className="border border-black p-1">
                 Submit
               </button>
