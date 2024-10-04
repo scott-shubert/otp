@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import QuestionDisplay, { Question } from './QuestionDisplay'
+import { Answer, Question, Round } from './utils/classesAndInterfaces'
+import QuestionDisplay from './QuestionDisplay'
 
 export default function RoundDisplay({
   round,
@@ -84,23 +85,5 @@ export default function RoundDisplay({
       copy.pop()
       setAnswers(copy)
     }
-  }
-}
-
-export interface Round {
-  id: string
-  name: string
-  description: string
-  questions: Question[]
-  numberOfQuestions: number
-}
-
-export class Answer {
-  id: string
-  responses: string[]
-
-  constructor(id: string, responses: number) {
-    this.id = id
-    this.responses = new Array<string>(responses).fill('')
   }
 }

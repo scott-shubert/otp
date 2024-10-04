@@ -1,13 +1,9 @@
-import RoundDisplay, { Answer, Round } from './RoundDisplay'
 import { useEffect, useState } from 'react'
 import { socket } from './socket'
-import { Question } from './QuestionDisplay'
 import axios from 'axios'
 import CreateTeam from './CreateTeam'
-
-interface teamName {
-  teamName: string
-}
+import { Answer, Question, Round, teamName } from './utils/classesAndInterfaces'
+import RoundDisplay from './RoundDisplay'
 
 function App() {
   const [currentRound, setCurrentRound] = useState<Round>()
@@ -50,7 +46,17 @@ function App() {
   }, [])
 
   const submitAnswers = (answers: Answer[]) => {
-    socket.emit('submit answers', answers)
+    // socket.emit('submit answers', answers)
+    axios
+      .post(
+        'http://localhost:3000/submission',
+        { answers },
+        { withCredentials: true },
+      )
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => console.log('Error submitting answers: ', error))
   }
 
   const handleSetTeamName = (name: string) => {

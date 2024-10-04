@@ -1,3 +1,5 @@
+import { Question } from './utils/classesAndInterfaces'
+
 export default function QuestionDisplay({
   data,
   setAnswers,
@@ -34,13 +36,4 @@ export default function QuestionDisplay({
       </div>
     </div>
   )
-}
-
-export interface Question {
-  id: string
-  question: string
-  imageUrl: string
-  videoUrl: string
-  answerSlots: number
-  isBonus: boolean
 }
