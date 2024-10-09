@@ -12,6 +12,8 @@ export default function setupWebsockets(server: any) {
 
 	io.on('connection', (socket) => {
 		console.log('a user connected: ', socket.id)
+
+		// Inform new user of current round and question
 		io.to(socket.id).emit('set round', RoundService.activeRound)
 		io.to(socket.id).emit('set question', RoundService.activeQuestions)
 

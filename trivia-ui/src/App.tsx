@@ -46,7 +46,6 @@ function App() {
   }, [])
 
   const submitAnswers = (answers: Answer[]) => {
-    // socket.emit('submit answers', answers)
     axios
       .post(
         'http://localhost:3000/submission',
