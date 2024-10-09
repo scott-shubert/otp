@@ -1,4 +1,4 @@
-# OTP: Open Triva Platform
+# OTP: Open Trivia Platform
 
 A complete platform for creating and hosting your own trivia game.
 
@@ -10,7 +10,7 @@ WIP: UI that all teams/players will use to set their team name, read questions, 
 
 ### game-backend
 
-WIP: Backend component that will orchistrate the running of the game, including keeping score and communicating with the admin-ui, present-ui, and then many teams connected via the trivia-ui.
+WIP: Backend component that will orchestrate the running of the game, including keeping score and communicating with the admin-ui, present-ui, and then many teams connected via the trivia-ui.
 
 ### admin-ui
 
@@ -28,7 +28,7 @@ TODO: A UI that will help you construct the JSON file that makes up a quiz.
 
 TODO: Use Docker Compose to handle all of the containers for each module.
 
-### For now run each of these commands in a separate terminal:
+For now run each of these commands in a separate terminal inside each module's directory:
 
 - trivia-ui: `npm run dev`
 - admin-ui: `npm run dev`
