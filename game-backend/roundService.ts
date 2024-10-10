@@ -6,16 +6,23 @@ export class Round {
 	numberOfQuestions = 0
 }
 
+export class Score {
+	correctPoints = 1
+	incorrectPoints = 0
+	allOrNothing = false
+}
+
 export class Question {
 	id = ''
 	question = ''
 	imageUrl = ''
 	videoUrl = ''
 	answerSlots = 0
-	validAnswers = []
+	validAnswers: string[][] = []
 	validAnswerDisplay = ''
 	answerOrderMatters = false
 	isBonus = false
+	score = new Score()
 }
 
 export class RoundService {
@@ -30,6 +37,10 @@ export class RoundService {
 		this.allRounds = data.rounds
 	}
 
+	static getRoundWithAnswers(): Round {
+		return this.allRounds[this.currentRound]
+	}
+
 	static advanceRoundBy(value: number): boolean {
 		const newRoundNumber = this.currentRound + value
 		if (newRoundNumber >= -1 && newRoundNumber < this.allRounds.length) {
@@ -37,7 +48,9 @@ export class RoundService {
 			if (newRoundNumber === -1) {
 				this.activeRound = new Round()
 			} else {
-				const newRound: Round = { ...this.allRounds[this.currentRound] }
+				const newRound: Round = structuredClone(
+					this.allRounds[this.currentRound]
+				)
 				newRound.numberOfQuestions = newRound.questions.length
 				newRound.questions = []
 				this.activeRound = newRound
@@ -60,10 +73,11 @@ export class RoundService {
 			this.currentQuestionCount = newQuestionCount
 
 			if (value >= 0 && this.activeQuestions.length < currentRoundLength) {
-				const newQuestion =
+				const newQuestion = structuredClone(
 					this.allRounds[this.currentRound].questions[
 						this.activeQuestions.length
 					]
+				)
 				newQuestion.validAnswers = []
 				newQuestion.validAnswerDisplay = ''
 				this.activeQuestions.push(newQuestion)

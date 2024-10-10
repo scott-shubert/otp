@@ -19,7 +19,12 @@
                     "validAnswers": [ [ "2", "two" ] ],
                     "validAnswerDisplay": "2",
                     "answerOrderMatters": false,
-                    "isBonus": false
+                    "isBonus": false,
+                    "score" : {
+                        "correctPoints": 1,
+                        "incorrectPoints": 0,
+                        "allOrNothing": false
+                    }
                 },
                 {
                     "id": "2",
@@ -30,7 +35,12 @@
                     "validAnswers": [ [ "2", "two" ], [ "3", "three" ], [ "5", "five" ] ],
                     "validAnswerDisplay": "2, 3, 5",
                     "answerOrderMatters": true,
-                    "isBonus": false
+                    "isBonus": false,
+                    "score" : {
+                        "correctPoints": 1,
+                        "incorrectPoints": 0,
+                        "allOrNothing": true
+                    }
                 },
                 {
                     "id": "3",
@@ -38,10 +48,15 @@
                     "imageUrl": "",
                     "videoUrl": "",
                     "answerSlots": 2,
-                    "validAnswers": [ [ "2", "two", "1", "one" ] ],
+                    "validAnswers": [ [ "2", "two" ], [ "1", "one" ] ],
                     "validAnswerDisplay": "1, 2",
                     "answerOrderMatters": false,
-                    "isBonus": false
+                    "isBonus": false,
+                    "score" : {
+                        "correctPoints": 1,
+                        "incorrectPoints": 1,
+                        "allOrNothing": false
+                    }
                 }
             ]
         },
@@ -59,7 +74,12 @@
                     "validAnswers": [ [ "house", "home" ] ],
                     "validAnswerDisplay": "A house or home.",
                     "answerOrderMatters": false,
-                    "isBonus": false
+                    "isBonus": false,
+                    "score" : {
+                        "correctPoints": 3,
+                        "incorrectPoints": 0,
+                        "allOrNothing": false
+                    }
                 },
                 {
                     "id": "5",
@@ -70,7 +90,12 @@
                     "validAnswers": [ [ "Germany" ] ],
                     "validAnswerDisplay": "Germany",
                     "answerOrderMatters": false,
-                    "isBonus": false
+                    "isBonus": false,
+                    "score" : {
+                        "correctPoints": 3,
+                        "incorrectPoints": 0,
+                        "allOrNothing": false
+                    }
                 },
                 {
                     "id": "6",
@@ -81,7 +106,12 @@
                     "validAnswers": [ [] ],
                     "validAnswerDisplay": "",
                     "answerOrderMatters": false,
-                    "isBonus": true
+                    "isBonus": true,
+                    "score" : {
+                        "correctPoints": 0,
+                        "incorrectPoints": 0,
+                        "allOrNothing": false
+                    }
                 }
             ]
         }
