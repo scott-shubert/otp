@@ -1,12 +1,13 @@
 import { Question, RoundService } from './roundService'
 
 export class GradedQuestion {
-	id = ''
+	questionId = ''
+	points = 0
 	answers: string[] = []
 	correct: boolean[] = []
 
 	constructor(id: string) {
-		this.id = id
+		this.questionId = id
 	}
 }
 
@@ -17,10 +18,12 @@ export interface Submission {
 
 export class GradedRound {
 	teamName = ''
+	roundId = ''
 	questions: GradedQuestion[] = []
 
-	constructor(teamName: string) {
+	constructor(teamName: string, roundId: string) {
 		this.teamName = teamName
+		this.roundId = roundId
 	}
 }
 
@@ -28,7 +31,7 @@ export function gradeSubmission(
 	teamName: string,
 	submissions: Submission[]
 ): GradedRound {
-	const result = new GradedRound(teamName)
+	const result = new GradedRound(teamName, RoundService.activeRound.id)
 	const roundQuestions = RoundService.getRoundWithAnswers().questions
 
 	roundQuestions.forEach((question) => {
@@ -73,5 +76,24 @@ function gradeQuestion(
 		})
 	}
 
+	calculateScore(result, question)
+
 	return result
+}
+
+function calculateScore(result: GradedQuestion, question: Question) {
+	if (question.score.allOrNothing) {
+		if (result.correct.includes(false)) return
+	}
+
+	result.correct.forEach((value, index) => {
+		if (value) {
+			result.points += question.score.correctPoints
+		} else {
+			if (result.answers[index] !== '')
+				result.points -= question.score.incorrectPoints
+		}
+	})
+
+	if (result.points < 0) result.points = 0
 }

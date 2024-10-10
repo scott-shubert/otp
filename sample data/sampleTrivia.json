@@ -54,7 +54,7 @@
                     "isBonus": false,
                     "score" : {
                         "correctPoints": 1,
-                        "incorrectPoints": -1,
+                        "incorrectPoints": 1,
                         "allOrNothing": false
                     }
                 }
