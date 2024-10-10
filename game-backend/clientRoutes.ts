@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { body, matchedData, validationResult } from 'express-validator'
+import { gradeSubmission } from './gradingService'
 
 const router = Router()
 
@@ -59,6 +60,9 @@ router.post(
 		}
 
 		console.log(request.session.teamName, answers)
+		const graddedQuestions = gradeSubmission(request.session.teamName, answers)
+		console.log(graddedQuestions)
+		graddedQuestions.questions.forEach((q) => console.log(q))
 		response.status(200).send()
 	}
 )
