@@ -19,6 +19,31 @@ export default function RoundDisplay({
     updateAnswerState()
   }, [questions])
 
+  function updateAnswerState() {
+    if (!questions || questions.length === 0) {
+      return setAnswers([])
+    }
+
+    // On Page refresh, need add all empty answers for all questions
+    if (answers.length === 0) {
+      const newAnswers: Answer[] = []
+      questions.forEach((question) => {
+        newAnswers.push(new Answer(question.id, question.answerSlots))
+      })
+      return setAnswers(newAnswers)
+    }
+
+    const copy = [...answers]
+    if (questions.length > answers.length) {
+      const newQ = questions[questions.length - 1]
+      copy.push(new Answer(newQ.id, newQ.answerSlots))
+      setAnswers(copy)
+    } else {
+      copy.pop()
+      setAnswers(copy)
+    }
+  }
+
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
     submitAnswers(answers)
@@ -69,21 +94,4 @@ export default function RoundDisplay({
       )}
     </div>
   )
-
-  function updateAnswerState() {
-    if (!questions || questions.length === 0) {
-      setAnswers([])
-      return
-    }
-
-    const copy = [...answers]
-    if (questions.length > answers.length) {
-      const newQ = questions[questions.length - 1]
-      copy.push(new Answer(newQ.id, newQ.answerSlots))
-      setAnswers(copy)
-    } else {
-      copy.pop()
-      setAnswers(copy)
-    }
-  }
 }
