@@ -25,7 +25,11 @@ export default function CreateTeam({
     <div className="h-12">
       {!justWatching && !teamName && (
         <div>
-          <input ref={name} className="m-1 border border-black" />
+          <input
+            ref={name}
+            maxLength={25}
+            className="m-1 border border-black"
+          />
           <button
             onClick={handleSetTeamName}
             className="border border-black p-1"

@@ -38,9 +38,10 @@ router.post(
 router.post(
 	'/submission',
 	[
-		body('answers').isArray({ min: 1 }),
+		body('answers').isArray({ min: 1, max: 25 }),
 		body('answers.*.id').notEmpty(),
-		body('answers.*.responses').isArray({ min: 1 }),
+		body('answers.*.responses').isArray({ min: 1, max: 25 }),
+		body('answers.*.responses.*').trim().isLength({ max: 25 }),
 	],
 	async (request: any, response: any) => {
 		const errors = validationResult(request)
@@ -60,7 +61,7 @@ router.post(
 		}
 
 		const graddedRound = gradeSubmission(request.session.teamName, answers)
-
+		graddedRound.sessionId = request.sessionID
 		const submission = new Submission(graddedRound)
 
 		try {
