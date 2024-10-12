@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { body, matchedData, validationResult } from 'express-validator'
 import { gradeSubmission } from './gradingService'
+import { Submission } from './schemas/roundSubmission'
 
 const router = Router()
 
@@ -30,7 +31,6 @@ router.post(
 
 		const { teamName } = matchedData(request)
 		request.session.teamName = teamName
-		console.log('post: ', request.sessionID)
 		response.status(200).send({ teamName })
 	}
 )
@@ -42,7 +42,7 @@ router.post(
 		body('answers.*.id').notEmpty(),
 		body('answers.*.responses').isArray({ min: 1 }),
 	],
-	(request: any, response: any) => {
+	async (request: any, response: any) => {
 		const errors = validationResult(request)
 
 		if (!errors.isEmpty()) {
@@ -59,11 +59,16 @@ router.post(
 			return response.status(400).json({ error: 'Invalid answer format.' })
 		}
 
-		console.log(request.session.teamName, answers)
-		const graddedQuestions = gradeSubmission(request.session.teamName, answers)
-		console.log(graddedQuestions)
-		graddedQuestions.questions.forEach((q) => console.log(q))
-		response.status(200).send()
+		const graddedRound = gradeSubmission(request.session.teamName, answers)
+
+		const submission = new Submission(graddedRound)
+
+		try {
+			await submission.save()
+			return response.status(200).send()
+		} catch (error) {
+			return response.status(500).json({ error: 'Problem saving submission.' })
+		}
 	}
 )
 
