@@ -1,12 +1,12 @@
 import express from 'express'
 import { createServer } from 'node:http'
-import testData from '../sample data/sampleTrivia.json'
-import { RoundService } from './roundService'
+import testData from '../../sample data/sampleTrivia.json'
+import { RoundService } from './utils/roundService'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import cors from 'cors'
-import clientRouter from './clientRoutes'
-import setupWebsockets from './websockets'
+import clientRouter from './routes/clientRoutes'
+import setupWebsockets from './routes/websockets'
 import mongoose from 'mongoose'
 import MongoStore = require('connect-mongo')
 

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "server.ts",
   "scripts": {
-    "start": "nodemon server.ts",
-    "start-prod": "node server.ts"
+    "start": "nodemon ./src/server.ts",
+    "start-prod": "node ./src/server.ts"
   },
   "author": "",
   "license": "ISC",

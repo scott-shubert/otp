@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { body, matchedData, validationResult } from 'express-validator'
-import { gradeSubmission } from './gradingService'
-import { Submission } from './schemas/roundSubmission'
-import { TeamName } from './schemas/teamName'
+import { gradeSubmission } from '../utils/gradingService'
+import { Submission } from '../schemas/roundSubmission'
+import { TeamName } from '../schemas/teamName'
 
 const router = Router()
 
