@@ -1,0 +1,13 @@
+services:
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: PasswordForOTP
+    ports:
+      - 27017:27017
+    volumes:
+      - otpDB:/data/db
+volumes:
+  otpDB:
+    name: "otpDB"

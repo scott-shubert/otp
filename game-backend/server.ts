@@ -7,12 +7,23 @@ import session from 'express-session'
 import cors from 'cors'
 import clientRouter from './clientRoutes'
 import setupWebsockets from './websockets'
+import mongoose from 'mongoose'
+import MongoStore = require('connect-mongo')
 
 declare module 'express-session' {
 	export interface SessionData {
 		teamName: string
 	}
 }
+mongoose
+	.connect('mongodb://localhost:27017/otp', {
+		authSource: 'admin',
+		user: 'admin',
+		pass: 'PasswordForOTP',
+	})
+	.then(() => console.log('Connected to DB'))
+	.catch((error) => console.log('Error connecting to DB: ', error))
+
 const secret = 'super secret password'
 const sessionMiddleware = session({
 	secret: secret,
@@ -22,6 +33,9 @@ const sessionMiddleware = session({
 		maxAge: 60000 * 60 * 6,
 		sameSite: 'lax',
 	},
+	store: MongoStore.create({
+		client: mongoose.connection.getClient(),
+	}),
 })
 const app = express()
 const port = 3000

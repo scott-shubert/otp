@@ -27,6 +27,7 @@ export default function QuestionDisplay({
               key={data.id + '-' + index}
               className="m-1 border border-black"
               type="text"
+              maxLength={25}
               onChange={(event) => {
                 setAnswers(event.target.value, index)
               }}

@@ -17,6 +17,7 @@ export interface Submission {
 }
 
 export class GradedRound {
+	sessionId = ''
 	teamName = ''
 	roundId = ''
 	questions: GradedQuestion[] = []
@@ -56,7 +57,7 @@ function gradeQuestion(
 
 	if (question.answerSlots === 1 || question.answerOrderMatters) {
 		submission.forEach((response, index) => {
-			if (question.validAnswers[index].includes(response)) {
+			if (question.validAnswers[index].includes(response.toLowerCase())) {
 				result.correct.push(true)
 			} else {
 				result.correct.push(false)
@@ -66,7 +67,7 @@ function gradeQuestion(
 		const validAnswers = [...question.validAnswers]
 		submission.forEach((response) => {
 			for (let i = 0; i < validAnswers.length; i++) {
-				if (validAnswers[i].includes(response)) {
+				if (validAnswers[i].includes(response.toLowerCase())) {
 					result.correct.push(true)
 					validAnswers.splice(i, 1)
 					return
