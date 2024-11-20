@@ -8,6 +8,14 @@ services:
       - 27017:27017
     volumes:
       - otpDB:/data/db
+  server:
+    build: game-backend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - 'mongodb'
+    environment:
+      DB_HOST: mongodb
 volumes:
   otpDB:
-    name: "otpDB"
+    name: 'otpDB'
