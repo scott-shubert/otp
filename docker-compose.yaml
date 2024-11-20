@@ -16,6 +16,14 @@ services:
       - 'mongodb'
     environment:
       DB_HOST: mongodb
+  trivia-ui:
+    build: trivia-ui
+    ports:
+      - '5173:5173'
+  admin-ui:
+    build: admin-ui
+    ports:
+      - '5174:5174'
 volumes:
   otpDB:
     name: 'otpDB'

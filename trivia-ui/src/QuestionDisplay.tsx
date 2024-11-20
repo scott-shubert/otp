@@ -24,7 +24,7 @@ export default function QuestionDisplay({
         {new Array(data.answerSlots).fill('').map((value, index) => {
           return (
             <input
-              key={data.id + '-' + index}
+              key={value}
               className="m-1 border border-black"
               type="text"
               maxLength={25}
