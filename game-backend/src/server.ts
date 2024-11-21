@@ -1,6 +1,6 @@
 import express from 'express'
 import { createServer } from 'node:http'
-import testData from '../../sample data/sampleTrivia.json'
+import testData from '../sample data/sampleTrivia.json'
 import { RoundService } from './utils/roundService'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
@@ -15,8 +15,9 @@ declare module 'express-session' {
 		teamName: string
 	}
 }
+
 mongoose
-	.connect('mongodb://localhost:27017/otp', {
+	.connect(`mongodb://${process.env.DB_HOST}:27017/otp`, {
 		authSource: 'admin',
 		user: 'admin',
 		pass: 'PasswordForOTP',
@@ -58,5 +59,5 @@ const server = createServer(app)
 setupWebsockets(server)
 
 server.listen(port, () => {
-	console.log(`Server is running on port ${port}`)
+	console.log(`1 Server is running on port ${port}`)
 })

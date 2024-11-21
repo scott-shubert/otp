@@ -1,0 +1,15 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY dist/ ./dist
+
+COPY index.js .
+
+EXPOSE 5174
+
+CMD ["node", "index.js"] 

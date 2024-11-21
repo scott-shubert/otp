@@ -8,6 +8,22 @@ services:
       - 27017:27017
     volumes:
       - otpDB:/data/db
+  server:
+    build: game-backend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - 'mongodb'
+    environment:
+      DB_HOST: mongodb
+  trivia-ui:
+    build: trivia-ui
+    ports:
+      - '5173:5173'
+  admin-ui:
+    build: admin-ui
+    ports:
+      - '5174:5174'
 volumes:
   otpDB:
-    name: "otpDB"
+    name: 'otpDB'

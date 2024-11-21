@@ -1,0 +1,8 @@
+.gitignore
+.github
+.git
+node_modules
+*.md
+dockerfile
+.dockerignore
+package-lock.json 
