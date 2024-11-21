@@ -1,4 +1,4 @@
-import { RoundService } from './roundService'
+import { RoundService } from '../utils/roundService'
 import { Server } from 'socket.io'
 
 export default function setupWebsockets(server: any) {
