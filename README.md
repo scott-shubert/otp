@@ -26,13 +26,23 @@ TODO: A UI that will help you construct the JSON file that makes up a quiz.
 
 ## Setup
 
-TODO: Use Docker Compose to handle all of the containers for each module.
+### Build
 
-For now run each of these commands in a separate terminal inside each module's directory:
+Run buildAll.sh
 
-- trivia-ui: `npm run dev`
-- admin-ui: `npm run dev`
-- game-backend: `npm start`
+**OR**
+
+In each directory, /admin-ui, /trivia-ui, and /game-backend, run the following commands in order:
+
+`npm install`
+
+`npm run build`
+
+### Run
+
+To run the project with docker, simply use the docker compose file with this command:
+
+`docker-compose up -d --build`
 
 The admin-ui can be reached on localhost:5174
 
