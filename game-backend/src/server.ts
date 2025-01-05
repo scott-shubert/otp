@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import cors from 'cors'
 import clientRouter from './routes/clientRoutes'
+import adminRouter from './routes/adminRoutes'
 import setupWebsockets from './routes/websockets'
 import mongoose from 'mongoose'
 import MongoStore = require('connect-mongo')
@@ -51,6 +52,7 @@ app.use(express.json())
 app.use(sessionMiddleware)
 app.use(cookieParser(secret))
 app.use(clientRouter)
+app.use(adminRouter)
 
 RoundService.setRounds(testData)
 
