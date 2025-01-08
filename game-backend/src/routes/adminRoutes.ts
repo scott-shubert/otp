@@ -1,15 +1,15 @@
 import { Router } from 'express'
-import { Submission } from '../schemas/roundSubmission'
+import { Team } from '../schemas/team'
 import { body, matchedData, validationResult } from 'express-validator'
 
 const router = Router()
 
-router.get('/submissions/:round', async (request, response) => {
-	const { round } = request.params
+router.get('/submissions/:teamId', async (request, response) => {
+	const { teamId } = request.params
 	try {
-		const submissions = await Submission.where('roundId').equals(round)
+		const team = await Team.findById(teamId)
 
-		return response.status(200).send({ submissions })
+		return response.status(200).send({ team })
 	} catch (error) {
 		console.log(error)
 		return response.status(500).json({ error: 'Problem retrieving scores.' })
@@ -19,35 +19,41 @@ router.get('/submissions/:round', async (request, response) => {
 router.put(
 	'/submission',
 	[
-		body('_id').isString(),
-		body('question._id').isString(),
-		body('question.correct').isArray({ min: 1 }),
-		body('question.correct.*').isBoolean(),
+		body('teamId').isString(),
+		body('roundId').isNumeric(),
+		body('questionId').isString(),
+		body('correct').isArray({ min: 1 }),
+		body('correct.*').isBoolean(),
 	],
 	async (request, response) => {
 		const errors = validationResult(request)
 
 		if (!errors.isEmpty()) {
-			return response.status(400).json({ error: 'Invalid request.' })
+			return response.status(400).json({ errors, msg: 'Invalid request.' })
 		}
 
 		const updatedGrade = matchedData(request)
 
-		const submission = await Submission.findById(updatedGrade._id)
+		const team = await Team.findById(updatedGrade.teamId)
 
-		if (!submission)
-			return response.status(400).json({ error: 'Invalid request.' })
+		if (!team) {
+			return response.status(400).json({ error: 'Team not found.' })
+		}
 
-		submission.questions.map((question) => {
-			if (question._id.toString() === updatedGrade.question._id) {
-				question.correct = updatedGrade.question.correct
+		for (const round of team.submissions) {
+			if (round.roundId === updatedGrade.roundId) {
+				round.questions.map((question) => {
+					if (question._id.toString() === updatedGrade.questionId) {
+						question.correct = updatedGrade.correct
+					}
+					return question
+				})
 			}
-			return question
-		})
+		}
 
-		await submission.save()
+		await team.save()
 
-		return response.status(200).send(submission)
+		return response.status(200).send(team)
 	}
 )
 

@@ -17,22 +17,16 @@ export interface Submission {
 }
 
 export class GradedRound {
-	sessionId = ''
-	teamName = ''
 	roundId = ''
 	questions: GradedQuestion[] = []
 
-	constructor(teamName: string, roundId: string) {
-		this.teamName = teamName
+	constructor(roundId: string) {
 		this.roundId = roundId
 	}
 }
 
-export function gradeSubmission(
-	teamName: string,
-	submissions: Submission[]
-): GradedRound {
-	const result = new GradedRound(teamName, RoundService.activeRound.id)
+export function gradeSubmission(submissions: Submission[]): GradedRound {
+	const result = new GradedRound(RoundService.activeRound.id)
 	const roundQuestions = RoundService.getRoundWithAnswers().questions
 
 	roundQuestions.forEach((question) => {

@@ -72,7 +72,7 @@
                     "videoUrl": "",
                     "answerSlots": 1,
                     "validAnswers": [ [ "house", "home" ] ],
-                    "validAnswerDisplay": "A house or home.",
+                    "validAnswerDisplay": "A house",
                     "answerOrderMatters": false,
                     "isBonus": false,
                     "score" : {

@@ -1,15 +1,14 @@
 import { Router } from 'express'
 import { body, matchedData, validationResult } from 'express-validator'
 import { gradeSubmission } from '../utils/gradingService'
-import { Submission } from '../schemas/roundSubmission'
-import { TeamName } from '../schemas/teamName'
+import { Team, Submission } from '../schemas/team'
 
 const router = Router()
 
 router.get('/team-name', async (request, response) => {
 	if (request.session.teamName) {
 		try {
-			const existingTeamName = await TeamName.findOne({
+			const existingTeamName = await Team.findOne({
 				nameLowerCase: request.session.teamName.toLowerCase(),
 			})
 			if (
@@ -46,7 +45,7 @@ router.post(
 		const { teamName } = matchedData(request)
 
 		try {
-			const existingTeamName = await TeamName.findOne({
+			const existingTeamName = await Team.findOne({
 				nameLowerCase: teamName.toLowerCase(),
 			})
 			if (existingTeamName)
@@ -54,12 +53,12 @@ router.post(
 					.status(400)
 					.json({ error: 'Team names must be unique.' })
 
-			const teamNameSchema = new TeamName({
+			const teamSchema = new Team({
 				sessionId: request.sessionID,
 				name: teamName,
 				nameLowerCase: teamName.toLowerCase(),
 			})
-			await teamNameSchema.save()
+			await teamSchema.save()
 			request.session.teamName = teamName
 			return response.status(200).send({ teamName })
 		} catch (error) {
@@ -76,7 +75,7 @@ router.post(
 		body('answers.*.responses').isArray({ min: 1, max: 25 }),
 		body('answers.*.responses.*').trim().isLength({ max: 25 }),
 	],
-	async (request: any, response: any) => {
+	async (request, response) => {
 		const errors = validationResult(request)
 
 		if (!errors.isEmpty()) {
@@ -93,14 +92,25 @@ router.post(
 			return response.status(400).json({ error: 'Invalid answer format.' })
 		}
 
-		const graddedRound = gradeSubmission(request.session.teamName, answers)
-		graddedRound.sessionId = request.sessionID
-		const submission = new Submission(graddedRound)
+		const team = await Team.findOne({ sessionId: request.sessionID })
+
+		if (!team) {
+			return response.status(400).json({ error: 'Team not found.' })
+		}
+
+		const submission = new Submission(gradeSubmission(answers))
+
+		team.submissions = team.submissions.filter(
+			(round) => round.roundId !== submission.roundId
+		)
+
+		team.submissions.push(submission)
 
 		try {
-			await submission.save()
+			await team.save()
 			return response.status(200).send()
 		} catch (error) {
+			console.error(`Error saving submission for team ${team.name}: `, error)
 			return response.status(500).json({ error: 'Problem saving submission.' })
 		}
 	}
