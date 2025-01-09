@@ -7,6 +7,7 @@ import session from 'express-session'
 import cors from 'cors'
 import clientRouter from './routes/clientRoutes'
 import adminRouter from './routes/adminRoutes'
+import quizRouter from './routes/quizRoutes'
 import setupWebsockets from './routes/websockets'
 import mongoose from 'mongoose'
 import MongoStore = require('connect-mongo')
@@ -53,6 +54,7 @@ app.use(sessionMiddleware)
 app.use(cookieParser(secret))
 app.use(clientRouter)
 app.use(adminRouter)
+app.use(quizRouter)
 
 RoundService.setRounds(testData)
 
@@ -61,5 +63,5 @@ const server = createServer(app)
 setupWebsockets(server)
 
 server.listen(port, () => {
-	console.log(`1 Server is running on port ${port}`)
+	console.log(`Server is running on port ${port}`)
 })
