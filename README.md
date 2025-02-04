@@ -47,3 +47,5 @@ To run the project with docker, simply use the docker compose file with this com
 The admin-ui can be reached on localhost:5174
 
 The trivia-ui can be reached on localhost:5173
+
+1
